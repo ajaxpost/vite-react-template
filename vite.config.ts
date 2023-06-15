@@ -1,5 +1,5 @@
 import { fileURLToPath, URL } from 'node:url';
-import { defineConfig } from 'vite';
+import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 import checker from 'vite-plugin-checker';
 import VitePluginCompression from 'vite-plugin-compression';
@@ -30,19 +30,12 @@ export default defineConfig(({ mode }) => {
         output: {
           manualChunks(id) {
             if (id.includes('node_modules')) {
-              return id
-                .toString()
-                .split('node_modules/')[1]
-                .split('/')[0]
-                .toString();
+              return id.toString().split('node_modules/')[1].split('/')[0].toString();
             }
           },
           chunkFileNames: (chunkInfo) => {
-            const facadeModuleId = chunkInfo.facadeModuleId
-              ? chunkInfo.facadeModuleId.split('/')
-              : [];
-            const fileName =
-              facadeModuleId[facadeModuleId.length - 2] || '[name]';
+            const facadeModuleId = chunkInfo.facadeModuleId ? chunkInfo.facadeModuleId.split('/') : [];
+            const fileName = facadeModuleId[facadeModuleId.length - 2] || '[name]';
             return `js/${fileName}/[name].[hash].js`;
           },
         },
@@ -61,6 +54,9 @@ export default defineConfig(({ mode }) => {
         //   changeOrigin: true,
         // },
       },
+    },
+    define: {
+      'process.env': loadEnv(mode, './', 'VITE_'),
     },
   };
 });
