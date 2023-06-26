@@ -5,7 +5,7 @@
 
 // 对自定义的环境变量新增类型
 interface ImportMetaEnv {
-  readonly VITE_ACB: string;
+  readonly VITE_ABC: string;
   // 更多环境变量...
 }
 

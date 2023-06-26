@@ -58,5 +58,7 @@ export default defineConfig(({ mode }) => {
     define: {
       'process.env': loadEnv(mode, './', 'VITE_'),
     },
+    envDir: './', // 用于加载 .env 文件的目录。
+    envPrefix: 'VITE_', // 以 envPrefix 开头的环境变量会通过 import.meta.env 暴露在你的客户端源码中。
   };
 });

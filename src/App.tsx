@@ -5,7 +5,7 @@ import s from './a.module.less';
 import '@/index.css';
 console.log(s);
 
-console.log(import.meta.env.VITE_ACB);
+console.log(import.meta.env.VITE_ABC);
 
 const App: FC = () => {
   const [count, setCount] = useState(0);
@@ -22,16 +22,12 @@ const App: FC = () => {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
+        <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
     </>
   );
 };
