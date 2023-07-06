@@ -3,6 +3,7 @@ import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 import checker from 'vite-plugin-checker';
 import VitePluginCompression from 'vite-plugin-compression';
+import path from 'path';
 
 export default defineConfig(({ mode }) => {
   return {
@@ -21,9 +22,23 @@ export default defineConfig(({ mode }) => {
       }),
       VitePluginCompression(), // gzip 压缩
     ],
+    css: {
+      preprocessorOptions: {
+        less: {
+          javascriptEnabled: true,
+          modifyVars: {
+            '@primary-color': '#2d8cf0',
+          },
+        },
+      },
+    },
     // 构建选项
     // https://zhuanlan.zhihu.com/p/594203360
     build: {
+      // target: 'es2015',
+      outDir: path.resolve(__dirname, 'dist'),
+      assetsDir: 'assets',
+      assetsInlineLimit: 8192,
       sourcemap: false,
       rollupOptions: {
         // vite打包是通过rollup来打包的
