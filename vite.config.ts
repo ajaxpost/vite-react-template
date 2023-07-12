@@ -59,17 +59,22 @@ export default defineConfig(({ mode }) => {
         output: {
           entryFileNames: '[name].js', // 指定 入口文件输出后的存放位置
           assetFileNames: 'static/[ext]/[name]-[hash].[ext]', // 指定 静态资源输出后的存放位置
-          manualChunks(id) {
-            if (id.includes('node_modules')) {
-              return id.toString().split('node_modules/')[1].split('/')[0].toString();
-            }
+          // 该选项允许你创建自定义的公共 chunk。
+          // manualChunks(id) {
+          //   if (id.includes('node_modules')) {
+          //     return id.toString().split('node_modules/')[1].split('/')[0].toString();
+          //   }
+          // },
+          manualChunks: {
+            r: ['react', 'react-dom'],
           },
           // 指定 chunks输出后的存放位置
-          chunkFileNames: (chunkInfo) => {
-            const facadeModuleId = chunkInfo.facadeModuleId ? chunkInfo.facadeModuleId.split('/') : [];
-            const fileName = facadeModuleId[facadeModuleId.length - 2] || '[name]';
-            return `js/${fileName}/[name].[hash].js`;
-          },
+          // chunkFileNames: (chunkInfo) => {
+          //   const facadeModuleId = chunkInfo.facadeModuleId ? chunkInfo.facadeModuleId.split('/') : [];
+          //   const fileName = facadeModuleId[facadeModuleId.length - 2] || '[name]';
+          //   return `js/${fileName}/[name].[hash].js`;
+          // },
+          chunkFileNames: 'static/js/[name]-[hash].js',
         },
       },
     },
